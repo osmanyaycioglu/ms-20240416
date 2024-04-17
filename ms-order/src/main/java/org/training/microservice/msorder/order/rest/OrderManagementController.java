@@ -4,9 +4,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.training.microservice.msorder.integration.CookReservationResponse;
 import org.training.microservice.msorder.order.rest.error.ErrorObj;
 import org.training.microservice.msorder.order.rest.models.OrderRequest;
 import org.training.microservice.msorder.order.rest.models.OrderRestObj;
+import org.training.microservice.msorder.order.rest.models.mappings.IOrderMapping;
 import org.training.microservice.msorder.services.OrderProcessService;
 
 @RestController
@@ -20,8 +22,29 @@ public class OrderManagementController {
         if (orderRequestParam.getMeals().size() > 100) {
             throw new MyException();
         }
-        orderProcessService.process();
-        return null;
+        CookReservationResponse processLoc = orderProcessService.process(IOrderMapping.INSTANCE.toOrder(orderRequestParam));
+        OrderRestObj orderRestObjLoc = new OrderRestObj();
+        orderRestObjLoc.setOrderId(processLoc.getOrderId());
+        orderRestObjLoc.setOrderStatus(processLoc.getNote());
+        return orderRestObjLoc;
+    }
+
+    @PostMapping("/process2")
+    public OrderRestObj processOrder2(@Valid @RequestBody OrderRequest orderRequestParam) throws MyException {
+        CookReservationResponse processLoc = orderProcessService.process2(IOrderMapping.INSTANCE.toOrder(orderRequestParam));
+        OrderRestObj orderRestObjLoc = new OrderRestObj();
+        orderRestObjLoc.setOrderId(processLoc.getOrderId());
+        orderRestObjLoc.setOrderStatus(processLoc.getNote());
+        return orderRestObjLoc;
+    }
+
+    @PostMapping("/process3")
+    public OrderRestObj processOrder3(@Valid @RequestBody OrderRequest orderRequestParam) throws MyException {
+        CookReservationResponse processLoc = orderProcessService.process3(IOrderMapping.INSTANCE.toOrder(orderRequestParam));
+        OrderRestObj orderRestObjLoc = new OrderRestObj();
+        orderRestObjLoc.setOrderId(processLoc.getOrderId());
+        orderRestObjLoc.setOrderStatus(processLoc.getNote());
+        return orderRestObjLoc;
     }
 
     @GetMapping("/delete")

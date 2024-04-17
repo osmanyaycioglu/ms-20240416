@@ -1,4 +1,4 @@
-package org.training.microservice.msorder.order.rest.models;
+package org.training.microservice.msorder.services.models;
 
 import lombok.Data;
 
