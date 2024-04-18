@@ -1,0 +1,37 @@
+server:
+  error:
+    include-binding-errors: always
+    include-message: always
+  port: ${ABC:10000}
+spring:
+  application:
+    name: ms-order
+  config:
+    import: configserver:http://127.0.0.1:8888
+resilience4j:
+  retry:
+    instances:
+      xyz:
+        base-config: base1
+        retry-exception-predicate: org.training.microservice.msorder.retry.MyExceptionRetryHandler
+        result-predicate: org.training.microservice.msorder.retry.MyReturnRetryHandler
+      abc:
+        base-config: base1
+    configs:
+      base1:
+        max-attempts: 2
+        wait-duration: 10ms
+        exponential-backoff-multiplier: 2
+        exponential-max-wait-duration: 100ms
+  circuitbreaker:
+    instances:
+      mycc:
+        sliding-window-type: count_based
+        sliding-window-size: 20
+        failure-rate-threshold: 30
+        minimum-number-of-calls: 10
+        wait-duration-in-open-state: 10s
+        automatic-transition-from-open-to-half-open-enabled: false
+        permitted-number-of-calls-in-half-open-state: 10
+        max-wait-duration-in-half-open-state: 10s
+
