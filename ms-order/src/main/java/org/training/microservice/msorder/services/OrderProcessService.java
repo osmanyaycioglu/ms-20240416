@@ -2,9 +2,9 @@ package org.training.microservice.msorder.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.training.microservice.msorder.integration.CookReservationResponse;
 import org.training.microservice.msorder.integration.RestaurantIntegration;
 import org.training.microservice.msorder.services.models.Order;
+import org.training.microservice.msrestaurantapi.rest.models.CookReservationResponse;
 
 @Service
 @RequiredArgsConstructor

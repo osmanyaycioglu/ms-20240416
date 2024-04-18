@@ -63,6 +63,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.training.microservice</groupId>
+            <artifactId>ms-restaurant-api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

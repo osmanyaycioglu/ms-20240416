@@ -6,22 +6,24 @@ import com.netflix.discovery.shared.Application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.training.microservice.msorder.integration.models.CookReservation;
+import org.training.microservice.msorder.order.rest.models.mappings.IOrderMapping;
 import org.training.microservice.msorder.services.models.Order;
+import org.training.microservice.msrestaurantapi.rest.models.CookReservation;
+import org.training.microservice.msrestaurantapi.rest.models.CookReservationResponse;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class RestaurantIntegration {
-    private final RestTemplate restTemplate;
-    private final EurekaClient eurekaClient;
+    private final RestTemplate                restTemplate;
+    private final EurekaClient                eurekaClient;
     private final IRestaurantFeignIntegration restaurantFeignIntegration;
 
 
     public CookReservationResponse reserveRestaurant(Order orderParam) {
         CookReservation cookReservationLoc = new CookReservation();
-        cookReservationLoc.setMeals(orderParam.getOrderedMeals());
+        cookReservationLoc.setReservationMeals(IOrderMapping.INSTANCE.toReservationMeals(orderParam.getOrderedMeals()));
         cookReservationLoc.setDeliveryPeriod(orderParam.getDeliveryMinute());
         return restTemplate.postForObject("http://MS-RESTAURANT/api/v1/restaurant/cook/reserve",
                                           cookReservationLoc,
@@ -35,11 +37,11 @@ public class RestaurantIntegration {
         Application        applicationLoc = eurekaClient.getApplication("MS-RESTAURANT");
         List<InstanceInfo> instancesLoc   = applicationLoc.getInstances();
         if (instancesLoc != null && !instancesLoc.isEmpty()) {
-            int             localIndex         = (int) (index % instancesLoc.size());
+            int localIndex = (int) (index % instancesLoc.size());
             index++;
             InstanceInfo    instanceInfoLoc    = instancesLoc.get(localIndex);
             CookReservation cookReservationLoc = new CookReservation();
-            cookReservationLoc.setMeals(orderParam.getOrderedMeals());
+            cookReservationLoc.setReservationMeals(IOrderMapping.INSTANCE.toReservationMeals(orderParam.getOrderedMeals()));
             cookReservationLoc.setDeliveryPeriod(orderParam.getDeliveryMinute());
             RestTemplate restTemplateLoc = new RestTemplate();
             return restTemplateLoc.postForObject("http://"
@@ -56,7 +58,7 @@ public class RestaurantIntegration {
 
     public CookReservationResponse reserveRestaurant3(Order orderParam) {
         CookReservation cookReservationLoc = new CookReservation();
-        cookReservationLoc.setMeals(orderParam.getOrderedMeals());
+        cookReservationLoc.setReservationMeals(IOrderMapping.INSTANCE.toReservationMeals(orderParam.getOrderedMeals()));
         cookReservationLoc.setDeliveryPeriod(orderParam.getDeliveryMinute());
         return restaurantFeignIntegration.reserve(cookReservationLoc);
 

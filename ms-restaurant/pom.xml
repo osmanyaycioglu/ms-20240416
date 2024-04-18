@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.training.microservice</groupId>
     <artifactId>ms-restaurant</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>ms-restaurant</name>
     <description>ms-restaurant</description>
     <properties>
@@ -52,6 +52,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.training.microservice</groupId>
+            <artifactId>ms-restaurant-api</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
     <dependencyManagement>

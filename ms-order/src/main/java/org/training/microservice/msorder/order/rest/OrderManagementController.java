@@ -4,12 +4,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.training.microservice.msorder.integration.CookReservationResponse;
 import org.training.microservice.msorder.order.rest.error.ErrorObj;
 import org.training.microservice.msorder.order.rest.models.OrderRequest;
 import org.training.microservice.msorder.order.rest.models.OrderRestObj;
 import org.training.microservice.msorder.order.rest.models.mappings.IOrderMapping;
 import org.training.microservice.msorder.services.OrderProcessService;
+import org.training.microservice.msrestaurantapi.rest.models.CookReservationResponse;
 
 @RestController
 @RequestMapping("/api/v1/order/management")
@@ -22,8 +22,8 @@ public class OrderManagementController {
         if (orderRequestParam.getMeals().size() > 100) {
             throw new MyException();
         }
-        CookReservationResponse processLoc = orderProcessService.process(IOrderMapping.INSTANCE.toOrder(orderRequestParam));
-        OrderRestObj orderRestObjLoc = new OrderRestObj();
+        CookReservationResponse processLoc      = orderProcessService.process(IOrderMapping.INSTANCE.toOrder(orderRequestParam));
+        OrderRestObj            orderRestObjLoc = new OrderRestObj();
         orderRestObjLoc.setOrderId(processLoc.getOrderId());
         orderRestObjLoc.setOrderStatus(processLoc.getNote());
         return orderRestObjLoc;

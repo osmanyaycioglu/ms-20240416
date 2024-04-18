@@ -7,6 +7,9 @@ import org.training.microservice.msorder.order.rest.models.MealRestObj;
 import org.training.microservice.msorder.order.rest.models.OrderRequest;
 import org.training.microservice.msorder.services.models.Meal;
 import org.training.microservice.msorder.services.models.Order;
+import org.training.microservice.msrestaurantapi.rest.models.ReservationMeal;
+
+import java.util.List;
 
 @Mapper()
 public interface IOrderMapping {
@@ -27,5 +30,13 @@ public interface IOrderMapping {
     @Mapping(source = "customer.customerNumber",target = "customerNumber")
     OrderRequest toOrderRequest(Order order);
 
+
+    Meal toMeal(ReservationMeal mealParam);
+
+    ReservationMeal toReservationMeal(Meal mealParam);
+
+    List<Meal> toMeals(List<ReservationMeal> mealParam);
+
+    List<ReservationMeal> toReservationMeals(List<Meal> mealParam);
 
 }

@@ -16,6 +16,10 @@
 
   <modules>
     <module>node-configuration</module>
+    <module>node-discovery</module>
+    <module>ms-restaurant</module>
+    <module>ms-restaurant-api</module>
+    <module>ms-order</module>
   </modules>
 
 </project>
