@@ -19,7 +19,7 @@ resilience4j:
         base-config: base1
     configs:
       base1:
-        max-attempts: 2
+        max-attempts: 3
         wait-duration: 10ms
         exponential-backoff-multiplier: 2
         exponential-max-wait-duration: 100ms
@@ -30,7 +30,7 @@ resilience4j:
         sliding-window-size: 20
         failure-rate-threshold: 30
         minimum-number-of-calls: 10
-        wait-duration-in-open-state: 10s
+        wait-duration-in-open-state: 1s
         automatic-transition-from-open-to-half-open-enabled: false
         permitted-number-of-calls-in-half-open-state: 10
         max-wait-duration-in-half-open-state: 10s

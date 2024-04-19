@@ -1,6 +1,5 @@
 package org.training.microservice.msorder.integration;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
 import com.netflix.discovery.shared.Application;
@@ -8,19 +7,13 @@ import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
-import org.apache.http.HttpException;
-import org.apache.http.client.HttpResponseException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
-import org.training.microservice.msorder.order.rest.error.ErrorObj;
 import org.training.microservice.msorder.order.rest.models.mappings.IOrderMapping;
 import org.training.microservice.msorder.services.models.Order;
 import org.training.microservice.msrestaurantapi.rest.models.CookReservation;
 import org.training.microservice.msrestaurantapi.rest.models.CookReservationResponse;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service

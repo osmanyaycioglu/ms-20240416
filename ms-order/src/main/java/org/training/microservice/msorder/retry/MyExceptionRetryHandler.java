@@ -10,19 +10,19 @@ public class MyExceptionRetryHandler implements Predicate<Exception> {
     @Override
     public boolean test(final Exception exceptionParam) {
         if (exceptionParam instanceof NullPointerException) {
-            return true;
+            return false;
         }
         if (exceptionParam instanceof FeignClientException) {
             FeignClientException feignClientExceptionLoc = (FeignClientException) exceptionParam;
             ErrorObj             errorObjLoc             = feignClientExceptionLoc.getErrorObj();
             switch (errorObjLoc.getErrorCode()) {
                 case 1004:
-                    return true;
+                    return false;
                 default:
-                    return  false;
+                    return  true;
             }
         }
-        return false;
+        return true;
     }
 
 }
