@@ -1,0 +1,17 @@
+server:
+  error:
+    include-binding-errors: always
+    include-message: always
+  port: ${ABC:8080}
+spring:
+  application:
+    name: apigw-order
+  config:
+    import: configserver:http://127.0.0.1:8888
+  cloud:
+    gateway:
+      routes:
+        - id: orderR
+          uri: lb://ms-order
+          predicates:
+            - Path=/api/v1/order/**

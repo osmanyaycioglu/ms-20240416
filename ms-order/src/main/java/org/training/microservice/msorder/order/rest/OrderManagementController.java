@@ -2,6 +2,7 @@ package org.training.microservice.msorder.order.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.training.microservice.msorder.order.rest.error.ErrorObj;
@@ -17,6 +18,9 @@ import org.training.microservice.msrestaurantapi.rest.models.CookReservationResp
 public class OrderManagementController {
     private final OrderProcessService orderProcessService;
 
+    @Value("${server.port}")
+    private int port;
+
     @PostMapping("/process")
     public OrderRestObj processOrder(@Valid @RequestBody OrderRequest orderRequestParam) throws MyException {
         if (orderRequestParam.getMeals().size() > 100) {
@@ -25,7 +29,7 @@ public class OrderManagementController {
         CookReservationResponse processLoc      = orderProcessService.process(IOrderMapping.INSTANCE.toOrder(orderRequestParam));
         OrderRestObj            orderRestObjLoc = new OrderRestObj();
         orderRestObjLoc.setOrderId(processLoc.getOrderId());
-        orderRestObjLoc.setOrderStatus(processLoc.getNote());
+        orderRestObjLoc.setOrderStatus(processLoc.getNote() + " port : " + port);
         return orderRestObjLoc;
     }
 
@@ -34,7 +38,7 @@ public class OrderManagementController {
         CookReservationResponse processLoc = orderProcessService.process2(IOrderMapping.INSTANCE.toOrder(orderRequestParam));
         OrderRestObj orderRestObjLoc = new OrderRestObj();
         orderRestObjLoc.setOrderId(processLoc.getOrderId());
-        orderRestObjLoc.setOrderStatus(processLoc.getNote());
+        orderRestObjLoc.setOrderStatus(processLoc.getNote() + " port : " + port);
         return orderRestObjLoc;
     }
 
@@ -43,7 +47,7 @@ public class OrderManagementController {
         CookReservationResponse processLoc = orderProcessService.process3(IOrderMapping.INSTANCE.toOrder(orderRequestParam));
         OrderRestObj orderRestObjLoc = new OrderRestObj();
         orderRestObjLoc.setOrderId(processLoc.getOrderId());
-        orderRestObjLoc.setOrderStatus(processLoc.getNote());
+        orderRestObjLoc.setOrderStatus(processLoc.getNote() + " port : " + port);
         return orderRestObjLoc;
     }
 

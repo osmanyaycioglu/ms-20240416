@@ -9,7 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.training.microservice.msorder.services.models.Order;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class CCCallerBean implements CommandLineRunner {
     private final CalleeBean             calleeBean;

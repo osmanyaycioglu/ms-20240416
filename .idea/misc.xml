@@ -12,6 +12,8 @@
         <option value="$PROJECT_DIR$/node-discovery/pom.xml" />
         <option value="$PROJECT_DIR$/ms-order/pom.xml" />
         <option value="$PROJECT_DIR$/ms-restaurant/pom.xml" />
+        <option value="$PROJECT_DIR$/apigw-order/pom.xml" />
+        <option value="$PROJECT_DIR$/ms-notify/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
