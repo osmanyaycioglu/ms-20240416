@@ -15,8 +15,8 @@ public class MyRabbitListener {
             value = @Queue(name = "sms-send", durable = "true", autoDelete = "false"),
             exchange = @Exchange(name = "send-exchange", type = ExchangeTypes.DIRECT),
             key = "sms-send-key"))
-    public void handleMessage(String stringParam) {
-        System.out.println("Received SMS : " + stringParam);
+    public void handleMessage(SendMessage sendMessageParam) {
+        System.out.println("Received SMS : " + sendMessageParam);
     }
 
 }
